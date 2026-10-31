@@ -5,6 +5,7 @@ from flowforge.domain.workflow import (
     Workflow,
     WorkflowStatus,
 )
+from flowforge.domain.workflow_step import StepType, WorkflowStep
 
 
 def test_new_workflow_status_in_draft() -> None:
@@ -61,3 +62,40 @@ def test_workflow_name_is_trimmed() -> None:
     workflow = Workflow(name="   Order Processing   ")
 
     assert workflow.name == "Order Processing"
+
+
+def test_can_add_step_to_draft_workflow() -> None:
+    workflow = Workflow(name="Order Processing")
+
+    step = WorkflowStep(name="Validate Order", type=StepType.HTTP_REQUEST)
+
+    workflow.add_step(step)
+
+    assert len(workflow.steps) == 1
+    assert workflow.steps[0] == step
+
+
+def test_cannot_add_step_to_active_workflow() -> None:
+    workflow = Workflow(name="Order Processing")
+    workflow.activate()
+
+    step = WorkflowStep(name="Validate Order", type=StepType.HTTP_REQUEST)
+
+    with pytest.raises(InvalidWorkflowTransition):
+        workflow.add_step(step)
+
+
+def test_cannot_add_duplicate_step() -> None:
+    workflow = Workflow(name="Order Processing")
+    step = WorkflowStep(name="Validate Order", type=StepType.HTTP_REQUEST)
+
+    workflow.add_step(step)
+
+    with pytest.raises(InvalidWorkflowDefinition):
+        workflow.add_step(step)
+
+
+def test_steps_collection_is_read_only() -> None:
+    workflow = Workflow(name="Order Processing")
+
+    assert isinstance(workflow.steps, tuple)
