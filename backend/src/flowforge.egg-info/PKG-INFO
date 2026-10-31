@@ -1,0 +1,9 @@
+Metadata-Version: 2.4
+Name: flowforge
+Version: 0.1.0
+Summary: Event-driven workflow orchestration platform
+Requires-Python: <3.15,>=3.14
+Provides-Extra: dev
+Requires-Dist: pytest<10,>=8; extra == "dev"
+Requires-Dist: ruff>=0.9; extra == "dev"
+Requires-Dist: pyright>=1.1; extra == "dev"

@@ -1,0 +1,5 @@
+
+[dev]
+pytest<10,>=8
+ruff>=0.9
+pyright>=1.1
