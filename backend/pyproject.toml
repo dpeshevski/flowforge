@@ -22,12 +22,31 @@ where = ["src"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_functions = ["test_*"]
 addopts = "-ra"
 
 [tool.ruff]
 line-length = 100
-target-version = "py312"
+target-version = "py314"
+src = ["src", "tests"]
 
 [tool.pyright]
 include = ["src", "tests"]
 typeCheckingMode = "strict"
+
+[tool.ruff.lint]
+select = [
+    "E4",
+    "E7",
+    "E9",
+    "F",
+    "I",
+    "B",
+    "UP",
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"
