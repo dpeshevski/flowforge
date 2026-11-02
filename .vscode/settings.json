@@ -21,5 +21,8 @@
     "**/__pycache__": true,
     "**/.pytest_cache": true,
     "**/.ruff_cache": true
-  }
+  },
+  "cSpell.words": [
+    "flowforge"
+  ]
 }
